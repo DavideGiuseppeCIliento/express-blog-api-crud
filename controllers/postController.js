@@ -78,20 +78,19 @@ const modify = (req, res) => {
 
 // DESTROY ---------------------------------
 const destroy = (req, res) => {
-  let removePost = posts;
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
   // Trova il post con ID corrispondente se non c'è error è FALSE
-  const error = removePost.find((post) => post.id === id);
+  const postFind = posts.find((post) => post.id === id);
 
-  if (!error) {
+  if (!postFind) {
     // ERROR FALSE error 404
     res.status(404).json({
       message: `Il post ${id} non è stato trovato`,
     });
   } else {
     //Stampa posts rimuovendo il prescelto
-    posts = removePost.filter((post) => removePost.id !== id);
+    posts = posts.filter((post) => post.id !== id);
     res.status(204).send();
     console.log(`Ho rimosso il post ${id}`);
   }
