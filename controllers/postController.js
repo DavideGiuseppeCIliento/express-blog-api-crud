@@ -19,10 +19,18 @@ const show = (req, res) => {
   // Trova il post con ID corrispondente
   const post = posts.find((post) => post.id === id);
 
-  res.json({
-    message: `Visualizzo il post ${id}`,
-    post,
-  });
+  if (!error) {
+    // ERROR FALSE error 404
+    res.status(404).json({
+      message: `Il post ${id} non è stato trovato`,
+    });
+  } else {
+    //Stampa post scelto
+    res.json({
+      message: `Visualizzo il post ${id}`,
+      post,
+    });
+  }
 };
 
 // STORE
