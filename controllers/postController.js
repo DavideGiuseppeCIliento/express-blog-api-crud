@@ -4,12 +4,24 @@ let posts = require("../data/array-blog");
 // # FUNZIONI CRUD ---------------------
 
 // INDEX
-
 const index = (req, res) => {
-  res.json({
-    message: "Visualizzo tutti i post",
-    posts,
-  });
+  let queryTag = req.query.tag;
+  //filtro è uguale all'array orginale
+  filteredPost = posts;
+
+  // Se esiste un queryName
+  if (queryTag) {
+    filteredPost = posts.filter((post) => post.tags.includes(queryTag));
+    res.json({
+      message: `Visualizzo post filtrati per ${queryTag}`,
+      filteredPost,
+    });
+  } else {
+    res.json({
+      message: "Visualizzo tutti i post",
+      posts,
+    });
+  }
 };
 
 // SHOW
