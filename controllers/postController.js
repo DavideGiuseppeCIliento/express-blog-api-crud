@@ -3,33 +3,33 @@ let posts = require("../data/array-blog");
 
 // # FUNZIONI CRUD ---------------------
 
-// INDEX
+// INDEX ---------------------------------
 const index = (req, res) => {
   let queryTag = req.query.tag;
   //filtro è uguale all'array orginale
-  filteredPost = posts;
+  let filteredPost = [...posts];
 
   // Se esiste un queryName
   if (queryTag) {
     filteredPost = posts.filter((post) => post.tags.includes(queryTag));
-    res.json({
+    return res.json({
       message: `Visualizzo post filtrati per ${queryTag}`,
-      filteredPost,
+      posts: filteredPost,
     });
   } else {
     res.json({
       message: "Visualizzo tutti i post",
-      posts,
+      posts: filteredPost,
     });
   }
 };
 
-// SHOW
+// SHOW ---------------------------------
 const show = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
-  // Trova il post con ID corrispondente
-  const post = posts.find((post) => post.id === id);
+  // Trova il post con ID corrispondente se non c'è error è FALSE
+  const error = removePost.find((post) => removePost.id === id);
 
   if (!error) {
     // ERROR FALSE error 404
@@ -45,33 +45,44 @@ const show = (req, res) => {
   }
 };
 
-// STORE
+// STORE ---------------------------------
 const store = (req, res) => {
   res.json({
     message: "Aggiungo un post",
   });
 };
 
-// UPDATE
+// UPDATE ---------------------------------
 const update = (req, res) => {
-  res.json({
-    message: "Modifico un post",
-  });
-};
-
-// MODIFY
-const modify = (req, res) => {
-  res.json({
-    message: "Modifico un post",
-  });
-};
-
-// DESTROY
-const destroy = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
   // Trova il post con ID corrispondente se non c'è error è FALSE
-  const error = posts.find((post) => post.id === id);
+  const error = removePost.find((post) => removePost.id === id);
+
+  res.json({
+    message: "Modifico un post",
+  });
+};
+
+// MODIFY ---------------------------------
+const modify = (req, res) => {
+  // Trasformo in INT la stringa ID
+  const id = parseInt(req.params.id);
+  // Trova il post con ID corrispondente se non c'è error è FALSE
+  const error = removePost.find((post) => removePost.id === id);
+
+  res.json({
+    message: "Modifico un post",
+  });
+};
+
+// DESTROY ---------------------------------
+const destroy = (req, res) => {
+  let removePost = posts;
+  // Trasformo in INT la stringa ID
+  const id = parseInt(req.params.id);
+  // Trova il post con ID corrispondente se non c'è error è FALSE
+  const error = removePost.find((post) => post.id === id);
 
   if (!error) {
     // ERROR FALSE error 404
@@ -80,8 +91,8 @@ const destroy = (req, res) => {
     });
   } else {
     //Stampa posts rimuovendo il prescelto
-    posts = posts.filter((post) => post.id !== id);
-    res.status(204);
+    posts = removePost.filter((post) => removePost.id !== id);
+    res.status(204).send();
     console.log(`Ho rimosso il post ${id}`);
   }
 };
