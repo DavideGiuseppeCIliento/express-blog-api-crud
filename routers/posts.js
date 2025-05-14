@@ -5,7 +5,7 @@ const express = require("express");
 let posts = require("../data/array-blog");
 
 //IMPORT CONTROLLER FUNCTION
-const postController = { index, show, store, update, modify, destroy };
+const postController = require("../controllers/postController.js");
 
 //SET ROUTER
 const router = express.Router();
