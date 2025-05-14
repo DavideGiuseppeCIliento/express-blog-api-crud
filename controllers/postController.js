@@ -61,10 +61,8 @@ const destroy = (req, res) => {
   } else {
     //Stampa posts rimuovendo il prescelto
     posts = posts.filter((post) => post.id !== id);
-    res.json({
-      message: `Ho rimosso il post ${id}`,
-      posts,
-    });
+    res.status(204);
+    console.log(`Ho rimosso il post ${id}`);
   }
 };
 
