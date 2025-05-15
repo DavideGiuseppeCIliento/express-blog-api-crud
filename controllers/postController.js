@@ -253,6 +253,12 @@ const modify = (req, res) => {
     return;
   }
 
+  // Modifichiamo l'elemento nell'Array
+  postFind.title = title;
+  postFind.content = content;
+  postFind.image = image;
+  postFind.tags = tags;
+
   // Messaggio di successo e show dell'array
   res.status(200);
   res.json({
