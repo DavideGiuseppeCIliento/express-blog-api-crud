@@ -210,12 +210,6 @@ const modify = (req, res) => {
   // Importiamo i valori dal body
   let { title, content, image, tags } = req.body;
 
-  // Controlliamo che i valori importati siano uguali o diversi dagli originali
-  title = title ?? postFind.title;
-  content = content ?? postFind.content;
-  image = image ?? postFind.image;
-  tags = tags ?? postFind.tags;
-
   // Controlli validità chiavi oggetto
   if (typeof title !== "string") {
     res.status(400);
@@ -253,11 +247,12 @@ const modify = (req, res) => {
     return;
   }
 
-  // Modifichiamo l'elemento nell'Array
-  postFind.title = title;
-  postFind.content = content;
-  postFind.image = image;
-  postFind.tags = tags;
+  // Controlliamo che i valori importati siano uguali o diversi dagli originali
+
+  postFind.title = title ?? postFind.title;
+  postFind.content = content ?? postFind.content;
+  postFind.image = image ?? postFind.image;
+  postFind.tags = tags ?? postFind.tags;
 
   // Messaggio di successo e show dell'array
   res.status(200);
