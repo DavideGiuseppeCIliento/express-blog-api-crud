@@ -15,11 +15,11 @@ const routerPosts = require("./routers/posts");
 //# SET PUBLIC DIRECTORY --------------------------------
 app.use(express.static(`public`));
 
-//# SET RUTER POSTS --------------------------------
-app.use("/posts", routerPosts);
-
 //# SET BODY-PARSER --------------------------------
 app.use(express.json());
+
+//# SET RUTER POSTS --------------------------------
+app.use("/posts", routerPosts);
 
 //# LISTEN PORT ---------------------------------
 app.listen(port, (error) => {
