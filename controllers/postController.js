@@ -59,11 +59,20 @@ const store = (req, res) => {
   // Creaiamo l'id del nuovo elemento
   const newId = posts[posts.length - 1].id + 1;
 
-  //importiamo i valori del body message
-  const { name, image, ingredients } = req.body;
+  // Importiamo i valori dal body
+  const { title, content, image, tags } = req.body;
 
-  //Controlli validità chiavi oggetto
-  if (!name || typeof name !== "string") {
+  // Controlli validità chiavi oggetto
+  if (!title || typeof title !== "string") {
+    res.status(400);
+    res.json({
+      error: "Error 400",
+      message: "Compilazione errata!",
+    });
+    return;
+  }
+
+  if (!content || typeof content !== "string") {
     res.status(400);
     res.json({
       error: "Error 400",
@@ -81,7 +90,7 @@ const store = (req, res) => {
     return;
   }
 
-  if (!ingredients || !Array.isArray(ingredients)) {
+  if (!tags || !Array.isArray(tags)) {
     res.status(400);
     res.json({
       error: "Error 400",
@@ -90,18 +99,19 @@ const store = (req, res) => {
     return;
   }
 
-  //Creaiamo il nuovo elemento
+  // Creiamo il nuovo elemento
   const newPost = {
     id: newId,
-    name,
+    title,
+    content,
     image,
-    ingredients,
+    tags,
   };
 
-  //Aggiungiamo l'elemento all'Array
+  // Aggiungiamo l'elemento all'array
   posts.push(newPost);
 
-  //Messaggio di successo e show dell'Array
+  // Messaggio di successo e show dell'array
   res.status(201);
   res.json({
     message: "Visualizzo tutti i post",
