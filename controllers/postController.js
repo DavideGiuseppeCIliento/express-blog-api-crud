@@ -3,7 +3,10 @@ let posts = require("../data/array-blog");
 
 // # FUNZIONI CRUD ---------------------
 
+//_____________________________________________
 // INDEX ---------------------------------
+//_____________________________________________
+
 const index = (req, res) => {
   let queryTag = req.query.tag;
   //filtro è uguale all'array orginale
@@ -24,7 +27,10 @@ const index = (req, res) => {
   }
 };
 
+//_____________________________________________
 // SHOW ---------------------------------
+//_____________________________________________
+
 const show = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
@@ -45,14 +51,68 @@ const show = (req, res) => {
   }
 };
 
+//_____________________________________________
 // STORE ---------------------------------
+//_____________________________________________
+
 const store = (req, res) => {
+  // Creaiamo l'id del nuovo elemento
+  const newId = posts[posts.length - 1].id + 1;
+
+  //importiamo i valori del body message
+  const { name, image, ingredients } = req.body;
+
+  //Controlli validità chiavi oggetto
+  if (!name || typeof name !== "string") {
+    res.status(400);
+    res.json({
+      error: "Error 400",
+      message: "Compilazione errata!",
+    });
+    return;
+  }
+
+  if (!image || typeof image !== "string") {
+    res.status(400);
+    res.json({
+      error: "Error 400",
+      message: "Compilazione errata!",
+    });
+    return;
+  }
+
+  if (!ingredients || !Array.isArray(ingredients)) {
+    res.status(400);
+    res.json({
+      error: "Error 400",
+      message: "Compilazione errata!",
+    });
+    return;
+  }
+
+  //Creaiamo il nuovo elemento
+  const newPost = {
+    id: newId,
+    name,
+    image,
+    ingredients,
+  };
+
+  //Aggiungiamo l'elemento all'Array
+  posts.push(newPost);
+
+  //Messaggio di successo e show dell'Array
+  res.status(201);
   res.json({
-    message: "Aggiungo un post",
+    message: "Visualizzo tutti i post",
+    posts,
   });
 };
 
+//_____________________________________________
 // UPDATE ---------------------------------
+//_____________________________________________
+
 const update = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
@@ -64,7 +124,10 @@ const update = (req, res) => {
   });
 };
 
+//_____________________________________________
 // MODIFY ---------------------------------
+//_____________________________________________
+
 const modify = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);
@@ -76,7 +139,10 @@ const modify = (req, res) => {
   });
 };
 
+//_____________________________________________
 // DESTROY ---------------------------------
+//_____________________________________________
+
 const destroy = (req, res) => {
   // Trasformo in INT la stringa ID
   const id = parseInt(req.params.id);

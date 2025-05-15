@@ -18,6 +18,9 @@ app.use(express.static(`public`));
 //# SET RUTER POSTS --------------------------------
 app.use("/posts", routerPosts);
 
+//# SET BODY-PARSER --------------------------------
+app.use(express.json());
+
 //# LISTEN PORT ---------------------------------
 app.listen(port, (error) => {
   if (error) {
