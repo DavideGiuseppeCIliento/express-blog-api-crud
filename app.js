@@ -11,10 +11,9 @@ const port = 3000;
 
 //IMPORT ROUTER POSTS
 const routerPosts = require("./routers/posts");
-const errorHeandler = require("./middlewares/errorheadler");
 
 //IMPORT MIDDLEWARE ERROR
-const errorheadler = require("./middleware/errorHadler");
+const errorhandler = require("./middleware/errorHandler");
 
 //IMPORT MIDDLEWARE NOT FOUND
 const notFound = require("./middlewares/notFound");
