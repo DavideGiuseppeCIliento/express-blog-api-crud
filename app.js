@@ -11,6 +11,15 @@ const port = 3000;
 
 //IMPORT ROUTER POSTS
 const routerPosts = require("./routers/posts");
+const errorHeandler = require("./middlewares/errorheadler");
+
+//IMPORT MIDDLEWARE ERROR
+const errorheadler = require("./middleware/errorHadler");
+
+//IMPORT MIDDLEWARE NOT FOUND
+const notFound = require("./middlewares/notFound");
+
+//----------------------------------------------------------
 
 //# SET PUBLIC DIRECTORY --------------------------------
 app.use(express.static(`public`));
@@ -20,6 +29,14 @@ app.use(express.json());
 
 //# SET RUTER POSTS --------------------------------
 app.use("/posts", routerPosts);
+
+//# MIDDLEWARE ERROR
+app.use(errorHeandler);
+
+//# MIDDLEWARE NOT FOUND
+app.use(notFound);
+
+//----------------------------------------------------------
 
 //# LISTEN PORT ---------------------------------
 app.listen(port, (error) => {
