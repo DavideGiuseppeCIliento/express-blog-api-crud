@@ -6,17 +6,14 @@ const app = express();
 //PORTA
 const port = 3000;
 
-//IMPORT DATA
-// const posts = require("./data/array-blog");
-
 //IMPORT ROUTER POSTS
 const routerPosts = require("./routers/posts");
 
 //IMPORT MIDDLEWARE ERROR
-const errorhandler = require("./middleware/errorHandler");
+const errorHandler = require("./middleware/errorhandler.js");
 
 //IMPORT MIDDLEWARE NOT FOUND
-const notFound = require("./middlewares/notFound");
+const notFound = require("./middlewares/notFound.js");
 
 //----------------------------------------------------------
 
@@ -30,7 +27,7 @@ app.use(express.json());
 app.use("/posts", routerPosts);
 
 //# MIDDLEWARE ERROR
-app.use(errorHeandler);
+app.use(errorHandler);
 
 //# MIDDLEWARE NOT FOUND
 app.use(notFound);
